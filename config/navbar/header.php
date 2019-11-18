@@ -49,6 +49,11 @@ return [
             "title" => "Validera IP.",
         ],
         [
+            "text" => "GeoIPChecker",
+            "url" => "geoip",
+            "title" => "Validera GeoIP.",
+        ],
+        [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",

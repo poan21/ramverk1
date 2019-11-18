@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the SampleController.
  */
-class JsonControllerTest extends TestCase
+class GeoipresControllerTest extends TestCase
 {
 
     public function setUp()
@@ -20,7 +20,7 @@ class JsonControllerTest extends TestCase
 
         $di = $this->di;
 
-        $this->controller = new JsonController();
+        $this->controller = new GeoipresController();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
         $this->request = $this->di->get("request");
@@ -31,7 +31,10 @@ class JsonControllerTest extends TestCase
 
         $ip = "8.8.8.8";
         $valid = "True";
-        $host = "dns.google";
+        $ip_type = "ipv4";
+        $country_name = "United States";
+        $city = "Mountain View";
+        $region = "California";
 
         $this->request->setGet("ip", $ip);
         $res = $this->controller->indexActionGet();
@@ -39,7 +42,10 @@ class JsonControllerTest extends TestCase
         $json = [[
             "ip" => $ip,
             "valid" => "True",
-            "host" => $host,
+            "ip_type" => $ip_type,
+            "country_name" => $country_name,
+            "city" => $city,
+            "region" => $region
         ]];
 
         $this->assertEquals($json, $res);
@@ -56,9 +62,12 @@ class JsonControllerTest extends TestCase
         $res = $this->controller->indexActionGet();
 
         $json = [[
-            "ip" => $ip,
+            "ip" => null,
             "valid" => "False",
-            "host" => "None found",
+            "ip_type" => null,
+            "country_name" => null,
+            "city" => null,
+            "region" => null
         ]];
 
         $this->assertEquals($json, $res);
@@ -69,7 +78,10 @@ class JsonControllerTest extends TestCase
 
         $ip = "8.8.8.8";
         $valid = "True";
-        $host = "dns.google";
+        $ip_type = "ipv4";
+        $country_name = "United States";
+        $city = "Mountain View";
+        $region = "California";
 
         $this->request->setPost("ip", $ip);
         $res = $this->controller->indexActionPost();
@@ -77,7 +89,10 @@ class JsonControllerTest extends TestCase
         $json = [[
             "ip" => $ip,
             "valid" => "True",
-            "host" => $host,
+            "ip_type" => $ip_type,
+            "country_name" => $country_name,
+            "city" => $city,
+            "region" => $region
         ]];
 
         $this->assertEquals($json, $res);
@@ -96,9 +111,12 @@ class JsonControllerTest extends TestCase
         $res = $this->controller->indexActionPost();
 
         $json = [[
-            "ip" => $ip,
+            "ip" => null,
             "valid" => "False",
-            "host" => "None found",
+            "ip_type" => null,
+            "country_name" => null,
+            "city" => null,
+            "region" => null
         ]];
 
         $this->assertEquals($json, $res);

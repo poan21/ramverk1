@@ -10,15 +10,9 @@ use Anax\Commons\ContainerInjectableTrait;
 // use Anax\Route\Exception\InternalErrorException;
 
 /**
- * A sample controller to show how a controller class can be implemented.
- * The controller will be injected with $di if implementing the interface
- * ContainerInjectableInterface, like this sample class does.
- * The controller is mounted on a particular route and can then handle all
- * requests for that mount point.
- *
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class IpController implements ContainerInjectableInterface
+class GeoipController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -28,6 +22,7 @@ class IpController implements ContainerInjectableInterface
      * @var string $db a sample member variable that gets initialised
      */
     private $db = "not active";
+    private $checkIp;
 
 
 
@@ -43,6 +38,7 @@ class IpController implements ContainerInjectableInterface
         // Use to initialise member variables.
         $this->db = "active";
         $this->checkIp = new CheckIp();
+        $this->curlIp = new CurlIp();
     }
 
 
@@ -57,15 +53,14 @@ class IpController implements ContainerInjectableInterface
      */
     public function indexAction() : object
     {
+        $title = "Geo IP Checker";
+
+        $page = $this->di->get("page");
 
         $data = [
         ];
 
-        $title = "IP Checker";
-
-        $page = $this->di->get("page");
-
-        $page->add("ip/ip_form", $data);
+        $page->add("ip/geoip_form", $data);
 
         return $page->render([
             "title" => $title,
@@ -89,32 +84,26 @@ class IpController implements ContainerInjectableInterface
         $page = $this->di->get("page");
 
         $ip = $request->getPost("ip");
-        $valid = "False";
-        $host = "None found";
 
         $val = $this->checkIp->validIp($ip);
+        $api_res = false;
 
         if ($val) {
             $valid = "True";
+            $api_res = $this->curlIp->curl($ip);
         } else {
             $valid = "False";
         }
 
-        $host = $this->checkIp->validHost($ip);
-
-        if ($host == false) {
-            $host = "Not found";
-        }
-
         $data = [
-            "ip" => $ip,
-            "valid" => $valid,
-            "host" => $host
+            "ip" => $api_res['ip'],
+            "ip_type" => $api_res['type'],
+            "country_name" => $api_res['country_name'],
+            "city" => $api_res['city'],
+            "region" => $api_res['region_name']
         ];
 
-        $page = $this->di->get("page");
-
-        $page->add("ip/ip_res", $data);
+        $page->add("ip/geoip_res", $data);
 
         return $page->render([
             "title" => $title,

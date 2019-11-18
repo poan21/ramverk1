@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test the SampleController.
  */
-class IpControllerTest extends TestCase
+class GeoipControllerTest extends TestCase
 {
 
     public function setUp()
@@ -20,11 +20,13 @@ class IpControllerTest extends TestCase
 
         $di = $this->di;
 
-        $this->controller = new IpController();
+        $this->controller = new GeoipController();
         $this->controller->setDI($this->di);
         $this->controller->initialize();
-        $this->request = $this->di->get("request");
+        $request = $this->di->get("request");
     }
+
+
 
     /**
      * Test the route "index".
@@ -36,27 +38,25 @@ class IpControllerTest extends TestCase
         $this->assertContains("IP Checker", $body);
     }
 
+
+
     public function testindexActionPostFalse()
     {
-        $this->request->setPost("ip", "");
+        $request = $this->di->get("request");
+        $request->setPost("ip", "");
         $res = $this->controller->indexActionPost();
         $body = $res->getBody();
         $this->assertContains("Ingen hittad IP", $body);
     }
 
+
+
     public function testindexActionPostTrue()
     {
-        $this->request->setPost("ip", "8.8.8.8");
+        $request = $this->di->get("request");
+        $request->setPost("ip", "8.8.8.8");
         $res = $this->controller->indexActionPost();
         $body = $res->getBody();
-        $this->assertContains("google", $body);
-    }
-
-    public function testindexActionPostNoDomain()
-    {
-        $this->request->setPost("ip", "5.5.5.5");
-        $res = $this->controller->indexActionPost();
-        $body = $res->getBody();
-        $this->assertContains("Not found", $body);
+        $this->assertContains("United States", $body);
     }
 }
