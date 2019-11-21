@@ -57,7 +57,16 @@ class GeoipController implements ContainerInjectableInterface
 
         $page = $this->di->get("page");
 
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
         $data = [
+            "ip" => $ip
         ];
 
         $page->add("ip/geoip_form", $data);

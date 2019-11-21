@@ -11,7 +11,7 @@ namespace Anax\View;
 <p>Ange en IP adress som vi kan kolla om den är en giltlig ip4 eller ip6 adress.</p>
 <form method="post">
     <label for="ip"IP Adress: <label>
-    <input type="text" name="ip" placeholder="Ange ip">
+    <input type="text" name="ip" placeholder="Ange ip" value="<?= htmlentities($ip) ?>">
     <input type="submit" name="check" value="Check">
 </form>
 
@@ -19,7 +19,7 @@ namespace Anax\View;
 <p>Validera IP och visa information med JSON.</p>
 <form action="./api_geoip" method="get">
     <label for="ip"IP Adress: <label>
-    <input type="text" name="ip" placeholder="Ange ip">
+    <input type="text" name="ip" placeholder="Ange ip" value="<?= htmlentities($ip) ?>">
     <input type="submit" value="Check">
 </form>
 
