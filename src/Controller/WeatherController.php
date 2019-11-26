@@ -12,7 +12,7 @@ use Anax\Commons\ContainerInjectableTrait;
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class GeoipController implements ContainerInjectableInterface
+class WeatherController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
@@ -72,7 +72,7 @@ class GeoipController implements ContainerInjectableInterface
             "ip" => $ip
         ];
 
-        $page->add("ip/geoip_form", $data);
+        $page->add("ip/weather_form", $data);
 
         return $page->render([
             "title" => $title,
@@ -97,28 +97,31 @@ class GeoipController implements ContainerInjectableInterface
 
         $ip = $request->getPost("ip");
 
+        $output = $request->getPost("days");
+
         $val = $this->checkIp->validIp($ip);
         $api_res = false;
 
         if ($val) {
-            $valid = "True";
+            $valid = true;
             $api_res = $this->di->get("ipstack")->curl($ip);
+            $res = $this->di->get("darksky")->multiCurl($api_res, $output);
         } else {
-            $valid = "False";
+            $valid = false;
+            $res = "None";
         }
 
+
         $data = [
-            "ip" => $api_res['ip'],
-            "ip_type" => $api_res['type'],
-            "country_name" => $api_res['country_name'],
-            "city" => $api_res['city'],
-            "region" => $api_res['region_name']
+            "valid" => $valid,
+            "res" => $res,
         ];
 
-        $page->add("ip/geoip_res", $data);
+        $page->add("ip/weather_res", $data);
 
         return $page->render([
             "title" => $title,
         ]);
+        // var_dump($json);
     }
 }

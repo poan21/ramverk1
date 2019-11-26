@@ -2,10 +2,20 @@
 
 namespace Anax\Controller;
 
-include_once 'apiKey.php';
-
 class CurlIp
 {
+    private $key;
+
+    /**
+     * Set key
+     *
+     * @param: string $key key to set.
+     *
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+    }
 
 
     /**
@@ -17,8 +27,7 @@ class CurlIp
      */
     public function curl($ip)
     {
-        $key = new ApiKey();
-        $access_key = $key->getKey();
+        $access_key = $this->key;
         $url = 'http://api.ipstack.com/'.$ip.'?access_key='.$access_key.'';
 
         // Initialize CURL:

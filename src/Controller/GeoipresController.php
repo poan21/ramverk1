@@ -61,7 +61,7 @@ class GeoipresController implements ContainerInjectableInterface
 
         if ($val) {
             $valid = "True";
-            $api_res = $this->curlIp->curl($ip);
+            $api_res = $this->di->get("ipstack")->curl($ip);
         } else {
             $valid = "False";
         }
@@ -97,7 +97,7 @@ class GeoipresController implements ContainerInjectableInterface
 
         if ($val) {
             $valid = "True";
-            $api_res = $this->curlIp->curl($ip);
+            $api_res = $this->di->get("ipstack")->curl($ip);
         } else {
             $valid = "False";
         }

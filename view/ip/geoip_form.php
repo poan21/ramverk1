@@ -7,8 +7,8 @@ namespace Anax\View;
  */
 
 ?>
-<h1>IP Checker</h1>
-<p>Ange en IP adress som vi kan kolla om den är en giltlig ip4 eller ip6 adress.</p>
+<h1>GeoIP Checker</h1>
+<p>Ange en IP adress för att hitta platsinformation.</p>
 <form method="post">
     <label for="ip"IP Adress: <label>
     <input type="text" name="ip" placeholder="Ange ip" value="<?= htmlentities($ip) ?>">

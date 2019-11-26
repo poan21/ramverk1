@@ -54,6 +54,11 @@ return [
             "title" => "Validera GeoIP.",
         ],
         [
+            "text" => "WeatherChecker",
+            "url" => "weather",
+            "title" => "Kolla upp väder.",
+        ],
+        [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",
