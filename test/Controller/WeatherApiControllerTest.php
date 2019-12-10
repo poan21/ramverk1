@@ -37,7 +37,7 @@ class WeatherApiControllerTest extends TestCase
     {
         $request = $this->di->get("request");
 
-        $ip = "1.1.1.1";
+        $ip = "8.8.8.8";
         $days = "week";
 
         $request->setGet("ip", $ip);
@@ -64,7 +64,7 @@ class WeatherApiControllerTest extends TestCase
     {
         $request = $this->di->get("request");
 
-        $ip = "1.1.1.1";
+        $ip = "8.8.8.8";
         $days = "week";
         $request->setPost("ip", $ip);
         $request->setPost("days", $days);
