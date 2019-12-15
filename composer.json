@@ -5,11 +5,14 @@
     "minimum-stability": "beta",
     "prefer-stable": true,
     "autoload": {
-        "psr-4": {"Anax\\": "src/"}
+        "psr-4": {"Anax\\": "src/",
+        "Pon\\": "src/"}
     },
     "require": {
         "anax/anax-ramverk1-me": "^1.0.0",
-        "pon18/ramverk1-weathermodule": "^v1.0.2"
+        "pon18/ramverk1-weathermodule": "^v1.0.2",
+        "anax/htmlform": "^2.0",
+        "anax/database-active-record": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"

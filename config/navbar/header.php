@@ -59,6 +59,11 @@ return [
             "title" => "Kolla upp väder.",
         ],
         [
+            "text" => "Book",
+            "url" => "book",
+            "title" => "Databas med böcker.",
+        ],
+        [
             "text" => "Verktyg",
             "url" => "verktyg",
             "title" => "Verktyg och möjligheter för utveckling.",

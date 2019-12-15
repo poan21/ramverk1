@@ -6922,7 +6922,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .rm-navbar {
   text-align: center;
   font-family: Cambria, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1.3em;
+  font-size: 1.2em;
   line-height: 0;
 }
 .rm-menu-button {
@@ -6960,6 +6960,10 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   text-align: center;
   border: solid 3px cadetblue;
   margin-top: 10px;
+}
+.bookPic {
+  max-width: 300px;
+  max-height: 300px;
 }
 @font-face {
   font-family: 'Special Elite';
